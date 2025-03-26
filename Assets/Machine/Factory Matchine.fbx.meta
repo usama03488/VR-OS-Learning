@@ -3,7 +3,52 @@ guid: 4fb3058f5ede6a2468d1b50126c963d5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main Model
+    second: {fileID: 2100000, guid: b84c02a08b5c62c4a83f5a2a9370f00c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Road
+    second: {fileID: 2100000, guid: de98bee1570ee164489378c31b3c5987, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tv 01
+    second: {fileID: 2100000, guid: fa2de907e29c7be46be94e8517a8c4f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cylender
+    second: {fileID: 2100000, guid: 2e526417f31074943a95762ef7579598, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: main boy head
+    second: {fileID: 2100000, guid: b31ca8729cb98954aa9f9de8420f2a89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pipe
+    second: {fileID: 2100000, guid: a26e59271ae4a49458eba02d302f2718, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pipe joint
+    second: {fileID: 2100000, guid: 043399215fd8a584d930eb902b25a413, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tv 02
+    second: {fileID: 2100000, guid: 6d0e0abaeb74874478b13bfd20a3bc5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wire
+    second: {fileID: 2100000, guid: 3604dfa8187427b4e9c196da1ff3167c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -7,6 +7,9 @@ public class AtomicSwitch : MonoBehaviour
     public GameObject indicatorLight; // Assign a red/green light in Unity
     public Grabbable Lever_grabbable;
     public Lever levercomp;
+    public Light RedLight;
+    public Light GreenLight;
+    public GameObject ParticleEffect;
     private void Start()
     {
         SetIndicator(false); // Set initial state to available
@@ -27,10 +30,13 @@ public class AtomicSwitch : MonoBehaviour
         if (!isLocked)
         {
             CancelInvoke(nameof(ResetLock));
-            Invoke(nameof(ResetLock), 2f); // Lock for 3 seconds
+            Invoke(nameof(ResetLock), 4f); // Lock for 3 seconds
             isLocked = true;
             Lever_grabbable.enabled = false;
-           // SetIndicator(true);
+            RedLight.enabled = false;
+            GreenLight.enabled = true;
+            ParticleEffect.SetActive(true);
+            // SetIndicator(true);
             Debug.Log("Access granted! Lock engaged.");
          
             // Simulate a process duration before unlocking
@@ -51,7 +57,9 @@ public class AtomicSwitch : MonoBehaviour
         Lever_grabbable.enabled = true;
         levercomp.SetLeverAngle(0);
         //SetIndicator(false);
-
+        RedLight.enabled = true;
+        GreenLight.enabled = false;
+        ParticleEffect.SetActive(false);
         Debug.Log("Lock released! Available for use.");
     }
 
