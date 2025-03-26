@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections; // For displaying the shared resource value
-
+using UnityEngine.InputSystem;
 public class CriticalSectionSimulator : MonoBehaviour
 {
     //public TextMeshProUGUI sharedValueText; // UI Text to show shared resource value
@@ -15,7 +15,7 @@ public class CriticalSectionSimulator : MonoBehaviour
    
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && isPlayerUsing==false && isOtherWorkerUsing==false)
+        if (Keyboard.current.spaceKey.isPressed && isPlayerUsing==false && isOtherWorkerUsing==false)
         {
             StartCoroutine(PlayerUseMachine(1));
             StartCoroutine(OtherWorkerUseMachine(-1));
@@ -24,8 +24,10 @@ public class CriticalSectionSimulator : MonoBehaviour
       //  sharedValueText.text = "Shared Resource: " + sharedResource;
 
         // Simulate race condition
-        if (isPlayerUsing && isOtherWorkerUsing && IsRaceCondiiton==false)
+        if (isPlayerUsing && isOtherWorkerUsing && va1 - va2 > 1)
         {
+            va1 = 0;
+            va2 = 0;
               // Both accessing at the same time - causes inconsistency
             Code_A.text = Code_A.text+ " Race Condition";
             Code_B.text = Code_B.text+ " Race Condition";
@@ -34,6 +36,7 @@ public class CriticalSectionSimulator : MonoBehaviour
           
         }
     }
+    int va1, va2 = 0;
     private IEnumerator PlayerUseMachine(int change)
     {
      
@@ -44,11 +47,10 @@ public class CriticalSectionSimulator : MonoBehaviour
 
         temp += change; // Modify the temp value
         sharedResource = temp; // Write back the modified value
-        if (IsRaceCondiiton == false)
-        {
+        va1 = temp;
             Code_A.text = "Output: " + temp;
-        }
-        else
+
+        if (IsRaceCondiiton == false)
         {
             Code_A.text = "Output: " + temp + " Race Condition";
         }
@@ -65,7 +67,7 @@ public class CriticalSectionSimulator : MonoBehaviour
 
         temp += change; // Modify the temp value
         sharedResource = temp; // Write back the modified value
-
+        va2=temp;
         if (IsRaceCondiiton == false)
         {
             Code_B.text = "Output: " + temp;

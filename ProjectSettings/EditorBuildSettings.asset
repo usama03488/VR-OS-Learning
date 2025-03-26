@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/BNG Framework/Scenes/XR Demo.unity
     guid: a1360534006d3f845bc79b46b93cfec5
   - enabled: 0
@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/BNG Framework/Scenes/Quest Demo.unity
     guid: eac0312c32df12949a47d07747a9d1cd
+  - enabled: 1
+    path: Assets/Scene/Syncronization.unity
+    guid: 6c77bdaca3369d9449d6dcf69f4b1e57
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d5e78c6236fdebb4d9275316a244192e,
       type: 2}
@@ -31,7 +34,7 @@ EditorBuildSettings:
     WebXR.Settings: {fileID: 11400000, guid: fe9659bb224bb054bb1dbca065d1d318, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 7c0d65f8139523c47a3ac0b1587ccdf6,
       type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: bc87842975b39e54c9a8257bb65aef55,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 926670f7ca1dd044685c314a74b6f020,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 03c00059ea87aee419dcc070962c8c0e,
       type: 2}
