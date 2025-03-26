@@ -12,6 +12,7 @@ public class CriticalSectionSimulator : MonoBehaviour
     private bool isPlayerUsing = false;
     private bool isOtherWorkerUsing = false;
     bool IsRaceCondiiton = false;
+   
     void Update()
     {
         if (Input.GetKey(KeyCode.Space) && isPlayerUsing==false && isOtherWorkerUsing==false)
@@ -35,6 +36,7 @@ public class CriticalSectionSimulator : MonoBehaviour
     }
     private IEnumerator PlayerUseMachine(int change)
     {
+     
         isPlayerUsing = true;
         int temp = sharedResource; // Both get the same initial value
 
@@ -55,6 +57,7 @@ public class CriticalSectionSimulator : MonoBehaviour
     }
     private IEnumerator OtherWorkerUseMachine(int change)
     {
+       
         isOtherWorkerUsing = true;
         int temp = sharedResource; // Both get the same initial value
 
