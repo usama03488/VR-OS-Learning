@@ -1,84 +1,86 @@
 using UnityEngine;
 using TMPro;
-using System.Collections; // For displaying the shared resource value
+using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 public class CriticalSectionSimulator : MonoBehaviour
 {
-    //public TextMeshProUGUI sharedValueText; // UI Text to show shared resource value
-    private int sharedResource = 5; // Shared variable (represents the machine’s state)
-    public TMP_Text Code_A ;
-    public TMP_Text Code_B ;
+    public TMP_Text Code_A;
+    public TMP_Text Code_B;
+
+    private int sharedResource = 5;
 
     private bool isPlayerUsing = false;
     private bool isOtherWorkerUsing = false;
-    bool IsRaceCondiiton = false;
-   
+    private bool isRaceCondition = false;
+
+    private bool playerActive = false;  // Track if Player coroutine is running
+    private bool workerActive = false;  // Track if Worker coroutine is running
+
+    int va1 = 0, va2 = 0;
+
+    public void Exit()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     void Update()
     {
-        if (Keyboard.current.spaceKey.isPressed && isPlayerUsing==false && isOtherWorkerUsing==false)
+        if (Keyboard.current.spaceKey.isPressed && !isPlayerUsing && !isOtherWorkerUsing)
         {
             StartCoroutine(PlayerUseMachine(1));
             StartCoroutine(OtherWorkerUseMachine(-1));
         }
-        // Display the current shared value
-      //  sharedValueText.text = "Shared Resource: " + sharedResource;
-
-        // Simulate race condition
-        if (isPlayerUsing && isOtherWorkerUsing && va1 - va2 > 1)
-        {
-            va1 = 0;
-            va2 = 0;
-              // Both accessing at the same time - causes inconsistency
-            Code_A.text = Code_A.text+ " Race Condition";
-            Code_B.text = Code_B.text+ " Race Condition";
-            Debug.Log("Race Condition! Both workers are using the machine.");
-            IsRaceCondiiton=true;
-          
-        }
     }
-    int va1, va2 = 0;
+
     private IEnumerator PlayerUseMachine(int change)
     {
-     
         isPlayerUsing = true;
-        int temp = sharedResource; // Both get the same initial value
+        playerActive = true;  // Mark player coroutine as active
 
-        yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); // Simulate unpredictable execution timing
+        int temp = sharedResource;
+        yield return new WaitForSeconds(Random.Range(0.1f, 0.3f));
 
-        temp += change; // Modify the temp value
-        sharedResource = temp; // Write back the modified value
-        va1 = temp;
-            Code_A.text = "Output: " + temp;
-
-        if (IsRaceCondiiton == false)
+        // Race condition occurs if worker is also modifying sharedResource at the same time
+        if (workerActive)
         {
-            Code_A.text = "Output: " + temp + " Race Condition";
+            isRaceCondition = true;
         }
-       
-       // Debug.Log(workerName + " sees sharedResource as: " + temp);
+
+        temp += change;
+        sharedResource = temp;
+        va1 = temp;
+
+        Code_A.text = isRaceCondition ? "Output: " + temp + " Race Condition" : "Output: " + temp;
+
+        playerActive = false;  // Mark coroutine as completed
+        isPlayerUsing = false;
     }
+
     private IEnumerator OtherWorkerUseMachine(int change)
     {
-       
         isOtherWorkerUsing = true;
-        int temp = sharedResource; // Both get the same initial value
+        workerActive = true;  // Mark worker coroutine as active
 
-        yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); // Simulate unpredictable execution timing
+        int temp = sharedResource;
+        yield return new WaitForSeconds(Random.Range(0.1f, 0.3f));
 
-        temp += change; // Modify the temp value
-        sharedResource = temp; // Write back the modified value
-        va2=temp;
-        if (IsRaceCondiiton == false)
+        // Race condition occurs if player is also modifying sharedResource at the same time
+        if (playerActive)
         {
-            Code_B.text = "Output: " + temp;
+            isRaceCondition = true;
         }
-        else
-        {
-            Code_B.text = "Output: " + temp + " Race Condition";
-        }
-        // Debug.Log(workerName + " sees sharedResource as: " + temp);
+
+        temp += change;
+        sharedResource = temp;
+        va2 = temp;
+
+        Code_B.text = isRaceCondition ? "Output: " + temp + " Race Condition" : "Output: " + temp;
+
+        workerActive = false;  // Mark coroutine as completed
+        isOtherWorkerUsing = false;
     }
-    // Called when the player interacts with the machine
     public void PlayerUseMachine()
     {
         StartCoroutine(PlayerUseMachine(1));
@@ -87,7 +89,7 @@ public class CriticalSectionSimulator : MonoBehaviour
         //sharedResource++; // Increment shared resource
         //Debug.Log("Player is using the machine.");
         //Code_A.text = "Output:" + sharedResource ;
-       // Invoke("ResetPlayer", 1f); // Simulate short usage time
+        // Invoke("ResetPlayer", 1f); // Simulate short usage time
 
     }
 
@@ -99,24 +101,28 @@ public class CriticalSectionSimulator : MonoBehaviour
         //sharedResource--; // Increment shared resource
         //Debug.Log("Other worker is using the machine.");
         //Code_B.text = "Output:" + sharedResource ;
-       // Invoke("ResetOtherWorker", 1f); // Simulate short usage time
+        // Invoke("ResetOtherWorker", 1f); // Simulate short usage time
     }
     public void Reset()
     {
-        IsRaceCondiiton = false;
+        isRaceCondition = false;
         sharedResource = 5;
         ResetPlayer();
         ResetOtherWorker();
     }
+
     void ResetPlayer()
     {
         Code_A.text = "";
         isPlayerUsing = false;
+        playerActive = false;
     }
 
     void ResetOtherWorker()
     {
         Code_B.text = "";
         isOtherWorkerUsing = false;
+        workerActive = false;
     }
 }
+

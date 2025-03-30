@@ -24,8 +24,26 @@ EditorBuildSettings:
     path: Assets/BNG Framework/Scenes/Quest Demo.unity
     guid: eac0312c32df12949a47d07747a9d1cd
   - enabled: 1
+    path: Assets/Scene/MainMenuScene.unity
+    guid: 56939d7febbad0b48a0be50a5fa55b84
+  - enabled: 1
     path: Assets/Scene/Syncronization.unity
     guid: 6c77bdaca3369d9449d6dcf69f4b1e57
+  - enabled: 1
+    path: Assets/Scene/PeterSon's Solution.unity
+    guid: 565b9ef204e1fa0408857fccfe01519a
+  - enabled: 1
+    path: Assets/Scene/Synchronization Hardware.unity
+    guid: e18fec79f5f881c408819aab7624e716
+  - enabled: 1
+    path: Assets/Scene/Locking Mechanism.unity
+    guid: b2863cf3269bda14b957ea11190caa08
+  - enabled: 1
+    path: Assets/Scene/Semaphores.unity
+    guid: dca3b6802ac44c54084cd6360ec43fac
+  - enabled: 1
+    path: Assets/Scene/Classic Sync Problem.unity
+    guid: f63d1d9ac96ea004f94a789228052662
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d5e78c6236fdebb4d9275316a244192e,
       type: 2}

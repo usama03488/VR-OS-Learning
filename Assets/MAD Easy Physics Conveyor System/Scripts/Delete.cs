@@ -7,13 +7,13 @@ namespace MADFerret
     public class Delete : MonoBehaviour
     {
         public ParticleSystem Dust;
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.tag == "Box")
-            {
-                Destroy(other.gameObject);
-                Dust.Play();
-            }
-        }
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.tag == "Box")
+        //    {
+        //        Destroy(other.gameObject);
+        //        Dust.Play();
+        //    }
+        //}
     }
 }

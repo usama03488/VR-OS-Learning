@@ -1,37 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class Worker : MonoBehaviour
 {
-    private bool hasAccess = false;
-
-    void Start()
+    private Animator animator;
+    float wait;
+    private void Awake()
     {
-        TryToWork();
+        animator = GetComponent<Animator>();
+    }
+    private void OnEnable()
+    {
+        
+        StartWork();
+    }
+    public void StartWork()
+    {
+        gameObject.SetActive(true); // Activate worker
+                                    //animator.SetTrigger("StartWorking"); // Play working animation
+        wait = Random.Range(5f, 10f);
+        StartCoroutine(WorkRoutine());
     }
 
-    void TryToWork()
+    IEnumerator WorkRoutine()
     {
-        hasAccess = SemaphoreManager.Instance.TryEnter(gameObject);
-        if (hasAccess)
-        {
-            StartCoroutine(WorkAndExit());
-        }
-    }
+        
+        yield return new WaitForSeconds(wait); // Simulate work time
 
-    public void GrantAccess()
-    {
-        hasAccess = true;
-        StartCoroutine(WorkAndExit());
-    }
+       // animator.SetTrigger("StopWorking"); // Optional: Play exit animation
 
-    IEnumerator WorkAndExit()
-    {
-        // Simulate work (e.g., picking up an item)
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f); // Short delay before disappearing
+      //  gameObject.SetActive(false); // Disable worker after work is done
 
-        // Exit semaphore
-        SemaphoreManager.Instance.Exit();
+        SemaphoreManager.Instance.WorkerFinished(gameObject);
     }
 }
