@@ -7,6 +7,7 @@ public class Atm : MonoBehaviour
     public ATMQueueManager manager;
     public GameObject workingCharacter;
     public TMP_Text Status;
+    public Charactermanager character;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,6 +17,7 @@ public class Atm : MonoBehaviour
     {
         if (other.tag == "npc" && isStarted==false)
         {
+            character = other.GetComponent<Charactermanager>();
             workingCharacter = other.gameObject;
             StartWork();
         }
@@ -36,7 +38,8 @@ public class Atm : MonoBehaviour
     IEnumerator FinishWork()
     {
         yield return new WaitForSeconds(Random.Range(3, 6));
-       Destroy(workingCharacter);
+        // Destroy(workingCharacter);
+        character.StartMoving();
       isStarted = false;
         Status.text = "Available";
         manager.canpress = true;

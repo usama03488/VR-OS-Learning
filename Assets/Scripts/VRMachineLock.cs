@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +34,7 @@ public class VRMachineLock : MonoBehaviour
         isLocked = true;
         lockStatusText.text = "Locked";
         Machine_Controls.SetActive(true); // Enable machine usage
+        StartCoroutine(Automatic_Unlock());
     }
 
     void UnlockMachine()
@@ -40,8 +42,16 @@ public class VRMachineLock : MonoBehaviour
         isLocked = false;
         lockStatusText.text = "Available";
        Machine_Controls.SetActive(false); // Disable machine usage
+        StopAllCoroutines();
     }
-
+    IEnumerator Automatic_Unlock()
+    {
+        yield return new WaitForSeconds(10f);
+        if (isLocked)
+        {
+            UnlockMachine();
+        }
+    }
     void UpdateUI()
     {
         lockStatusText.text = isLocked ? "Locked" : "Available";
