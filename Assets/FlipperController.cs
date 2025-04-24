@@ -7,44 +7,34 @@ public class FlipperController : MonoBehaviour
     public float rotationSpeed = 180f; // degrees per second
 
     private bool isRotating = false;
-    private bool flipped = false; // false = +30, true = -30
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "box")
-        {
-            Debug.Log("Box triggered");
-            TriggerFlip();
-        }
-    }
-    public void TriggerFlip()
+    public void RotateTo(float targetY)
     {
         if (!isRotating)
         {
-            float targetY = flipped ? 30f : -30f;
-            StartCoroutine(RotateToY(targetY));
-            flipped = !flipped; // toggle direction
+            StartCoroutine(RotateToLocalY(targetY));
         }
     }
 
-    private IEnumerator RotateToY(float targetY)
+    private IEnumerator RotateToLocalY(float targetY)
     {
         isRotating = true;
 
-        Quaternion startRotation = flipper.rotation;
-        Quaternion endRotation = Quaternion.Euler(flipper.eulerAngles.x, targetY, flipper.eulerAngles.z);
+        Quaternion startRot = flipper.localRotation;
+        Quaternion endRot = Quaternion.Euler(0f, targetY, 0f);
 
+        float angle = Quaternion.Angle(startRot, endRot);
+        float duration = angle / rotationSpeed;
         float t = 0f;
-        float duration = Quaternion.Angle(startRotation, endRotation) / rotationSpeed;
 
         while (t < duration)
         {
             t += Time.deltaTime;
-            flipper.rotation = Quaternion.Slerp(startRotation, endRotation, t / duration);
+            flipper.localRotation = Quaternion.Slerp(startRot, endRot, t / duration);
             yield return null;
         }
 
-        flipper.rotation = endRotation; // Snap exactly to target
+        flipper.localRotation = endRot; // Snap exactly to target
         isRotating = false;
     }
 }

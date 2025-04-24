@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class boxComp : MonoBehaviour
 {
+    public int TargetSlot = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
