@@ -29,17 +29,17 @@ public class SemaphoreManager : MonoBehaviour
         {
             int index = Random.Range(0, workers.Count);
             GameObject obj = Instantiate(workers[index], point.position, point.rotation);
-            obj.SetActive(false);
+            obj.SetActive(true);
             waitingWorkers.Enqueue(obj);
         }
     }
 
     void ActivateInitialWorkers()
     {
-        for (int i = 0; i < maxWorkers; i++)
-        {
-            ActivateNextWorker();
-        }
+        //for (int i = 0; i < maxWorkers; i++)
+        //{
+        //    ActivateNextWorker();
+        //}
     }
 
     public void WorkerFinished(GameObject worker)
@@ -68,17 +68,17 @@ public class SemaphoreManager : MonoBehaviour
         maxWorkers = Mathf.RoundToInt(newValue);
 
         // Adjust active workers to match new semaphore value
-        while (activeWorkers.Count < maxWorkers)
-        {
-            ActivateNextWorker();
-        }
+        //while (activeWorkers.Count < maxWorkers)
+        //{
+        //    ActivateNextWorker();
+        //}
 
-        while (activeWorkers.Count > maxWorkers)
-        {
-            GameObject worker = activeWorkers[activeWorkers.Count - 1];
-            activeWorkers.Remove(worker);
-            worker.SetActive(false);
-            waitingWorkers.Enqueue(worker);
-        }
+        //while (activeWorkers.Count > maxWorkers)
+        //{
+        //    GameObject worker = activeWorkers[activeWorkers.Count - 1];
+        //    activeWorkers.Remove(worker);
+        //    worker.SetActive(false);
+        //    waitingWorkers.Enqueue(worker);
+        //}
     }
 }

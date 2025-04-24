@@ -13,6 +13,7 @@ namespace MADFerret
         public Rigidbody[] Box;
         public int BoxNo;
         public bool IsSemaphore = false;
+        public bool IsLimit;
         void Start()
         {
             InvokeRepeating("SpawnBox", 2.0f, 3f);

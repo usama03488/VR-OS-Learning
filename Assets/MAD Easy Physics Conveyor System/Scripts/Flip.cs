@@ -22,11 +22,12 @@ namespace MADFerret
         }
         private void OnEnable()
         {
-            toggleLeftAction = new InputAction(binding: "<Keyboard>/space");
-            toggleLeftAction.performed += ctx => ToggleRotation();
-            toggleLeftAction.Enable();
+            //toggleLeftAction = new InputAction(binding: "<Keyboard>/space");
+            //toggleLeftAction.performed += ctx => ToggleRotation();
+            //toggleLeftAction.Enable();
             transform.rotation = Quaternion.Lerp(from, to, timeCount * speed);
             timeCount = timeCount + Time.deltaTime;
+            InvokeRepeating(nameof(ChangeRotation), 1f, 1f);
         }
 
         private void OnDisable()
@@ -38,6 +39,20 @@ namespace MADFerret
         {
             Left = !Left;
             timeCount = 0;
+        }
+        public void ChangeRotation()
+        {
+
+            if (Left == true)
+            {
+               
+                Left = false;
+            }
+            if (Left == false)
+            {
+            
+                Left = true;
+            }
         }
         // Update is called once per frame
         void Update()
@@ -54,6 +69,13 @@ namespace MADFerret
             {
                 transform.rotation = Quaternion.Lerp(to, from, timeCount * speed);
                 timeCount = timeCount + Time.deltaTime;
+            }
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Box")
+            {
+               // rotate
             }
         }
     }
