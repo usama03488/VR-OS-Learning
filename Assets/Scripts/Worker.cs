@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Worker : MonoBehaviour
 {
     private Animator animator;
+    public Text status;
     float wait;
     private void Awake()
     {

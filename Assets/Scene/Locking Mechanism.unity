@@ -19177,13 +19177,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Each machine now has a lock panel that workers must use before operating.
+  m_Text: 'Speeding up process
 
-    If
-    a worker locks the machine, the other must wait.
+    Preventing memory leaks
 
-    Unlocking happens after
-    work is done, allowing access to the next worker.
+    Locking a resource
+    so only one user can access it
+
+    Making the process run in parallel
 
 '
 --- !u!222 &1635430827

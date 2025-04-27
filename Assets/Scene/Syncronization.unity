@@ -11021,12 +11021,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'A race condition occurs when two or more processes or threads try to access
-    and modify a shared resource at the same time, leading to unpredictable and incorrect
-    behavior. It happens due to lack of synchronization, causing inconsistent or
-    unexpected results.
+  m_Text: 'System crashed
 
-'
+    Only consumer worked
+
+    Race condition
+
+    Nothing
+    happened'
 --- !u!222 &1635430827
 CanvasRenderer:
   m_ObjectHideFlags: 0

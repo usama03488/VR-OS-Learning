@@ -49742,10 +49742,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Peterson\u2019s Solution is a classical synchronization algorithm that
-    allows two processes (or threads) to share a critical section without conflicts
-    using only shared memory. It ensures mutual exclusion while avoiding deadlock
-    and starvation."
+  m_Text: 'To speed up process execution
+
+    To allow processes to run together
+
+    To
+    ensure mutual exclusion between two processes
+
+    To stop deadlock'
 --- !u!222 &1635430827
 CanvasRenderer:
   m_ObjectHideFlags: 0

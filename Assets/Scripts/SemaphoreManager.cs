@@ -9,6 +9,8 @@ public class SemaphoreManager : MonoBehaviour
 
     public List<GameObject> workers = new List<GameObject>(); // Worker prefabs
     public List<Transform> spawnPoints = new List<Transform>(); // Spawn positions
+    public List<SlotManager> managers;
+   
 
     public static SemaphoreManager Instance; // Singleton for easy access
 
@@ -25,10 +27,11 @@ public class SemaphoreManager : MonoBehaviour
 
     void SpawnWorkers()
     {
-        foreach (Transform point in spawnPoints)
+        for (int i=0;i<spawnPoints.Count;i++)
         {
             int index = Random.Range(0, workers.Count);
-            GameObject obj = Instantiate(workers[index], point.position, point.rotation);
+            GameObject obj = Instantiate(workers[index], spawnPoints[i].position, spawnPoints[i].rotation);
+            managers[i].worker = obj.GetComponent<Worker>();
             obj.SetActive(true);
             waitingWorkers.Enqueue(obj);
         }
