@@ -7177,6 +7177,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 13f7b8df3cb5bed45bb73e632b5df41e, type: 2}
     - target: {fileID: 2105329777898877721, guid: d732601737e271243b0cdfa6e4184c59,
         type: 3}
+      propertyPath: IsOld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105329777898877721, guid: d732601737e271243b0cdfa6e4184c59,
+        type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 1560198811}
@@ -8019,6 +8024,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NPC-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070672600723877413, guid: 782b43e6dd91fd4449f0c98a9ee28c57,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5054711740012375699, guid: 782b43e6dd91fd4449f0c98a9ee28c57,
         type: 3}
@@ -17526,6 +17536,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9c18296535ca4c242875a509654a98a6, type: 2}
+    - target: {fileID: 6575262061828976936, guid: a087d46010003cf42814a0315cdb3efe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6961101973479417837, guid: a087d46010003cf42814a0315cdb3efe,
         type: 3}
       propertyPath: m_LocalScale.x

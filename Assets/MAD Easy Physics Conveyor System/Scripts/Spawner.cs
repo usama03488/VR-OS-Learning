@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.Animations;
 using System.Collections;
+using TMPro;
 // Starting in 2 seconds.
 // a projectile will be launched every 3 seconds
 
@@ -21,17 +22,28 @@ namespace MADFerret
         public FlipperController flipper2;
         public float initialSpawnDelay = 1.5f;
         public float spawnDelayBetweenBoxes = 2f;
-
+        public TMP_Text queue_txt;
         private bool isWaitingToSpawn = false;
+        public bool IsOld = false;
+        private int boxspawn=0;
         private void Start()
         {
-            foreach (var slot in slots)
+            if (IsOld)
             {
-                slot.OnSlotFreed += HandleSlotFreed;
-                slot.OnSlotOccupied += CheckSlots;
-            }
+                InvokeRepeating("SpawnBox", 2.0f, 5f);
 
-           FirstSpawn();
+            }
+            else
+            {
+                foreach (var slot in slots)
+                {
+                    slot.OnSlotFreed += HandleSlotFreed;
+                    slot.OnSlotOccupied += CheckSlots;
+                }
+              
+                FirstSpawn();
+            }
+        
         }
         public void CheckSlots(SlotManager slot)
         {
@@ -48,6 +60,11 @@ namespace MADFerret
         //{
         //    TrySpawnBox(); // Try to spawn a new box for the freed slot
         //}
+        public void spawnNumber()
+        {
+            boxspawn++;
+            queue_txt.text=boxspawn.ToString();
+        }
         private IEnumerator DelayedTrySpawnBox()
         {
             isWaitingToSpawn = true;
@@ -69,22 +86,38 @@ namespace MADFerret
             
                 if (!slots[0].isOccupied)
                 {
+                if (boxspawn > 0)
+                {
+                    boxspawn--;
+                    queue_txt.text = boxspawn.ToString();
+                }
                     SetFlipperPathToSlot(0);
                     SpawnBoxTo(slots[0]);
                 }
                 else if (!slots[1].isOccupied)
                 {
-                    SetFlipperPathToSlot(1);
+                if (boxspawn > 0)
+                {
+                    boxspawn--;
+                    queue_txt.text = boxspawn.ToString();
+                }
+                SetFlipperPathToSlot(1);
                     SpawnBoxTo(slots[1]);
                 }
                 else if (!slots[2].isOccupied)
                 {
-                    SetFlipperPathToSlot(2);
+                if (boxspawn > 0)
+                {
+                    boxspawn--;
+                    queue_txt.text = boxspawn.ToString();
+                }
+                SetFlipperPathToSlot(2);
                     SpawnBoxTo(slots[2]);
                 }
                 else
                 {
-                    Debug.Log("All slots full. No spawning.");
+                InvokeRepeating(nameof(spawnNumber), 1.0f, 5f);
+                Debug.Log("All slots full. No spawning.");
                 }
             
         }
@@ -95,7 +128,9 @@ namespace MADFerret
         }
         private void SpawnBoxTo(SlotManager slot)
         {
+
             GameObject box = Instantiate(Box[0].gameObject,transform.position,transform.rotation);
+           
            // slot.ReceiveBox(box);
         }
 
@@ -119,7 +154,10 @@ namespace MADFerret
         }
         void SpawnBox()
         {
-
+            if (queue_txt != null) {
+                queue_txt.text = (boxspawn++).ToString();
+            }
+       
            if (!IsSemaphore &&problemManager.isFull == false)
             {
                 problemManager.IncrementAmount();
@@ -165,8 +203,13 @@ namespace MADFerret
             foreach (var slot in slots)
             {
                 if (!slot.isOccupied)
+                {
+                 
                     return slot;
+                }
+                 
             }
+          
             return null; // All occupied
         }
     }

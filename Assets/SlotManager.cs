@@ -31,6 +31,15 @@ public class SlotManager : MonoBehaviour
         OnSlotOccupied?.Invoke(this);
         StartCoroutine(FreeAfterDelay());
     }
+    public void InstantFree()
+    {
+        StopAllCoroutines();
+        isOccupied = false;
+        worker.status.text = "Available";
+        Destroy(Box);
+        // Notify listeners that this slot is now free
+        OnSlotFreed?.Invoke(this);
+    }
 
     private IEnumerator FreeAfterDelay()
     {
