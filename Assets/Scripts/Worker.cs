@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Worker : MonoBehaviour
 {
     private Animator animator;
+    public Text status;
     float wait;
     private void Awake()
     {
@@ -18,8 +20,8 @@ public class Worker : MonoBehaviour
     {
         gameObject.SetActive(true); // Activate worker
                                     //animator.SetTrigger("StartWorking"); // Play working animation
-        wait = Random.Range(5f, 10f);
-        StartCoroutine(WorkRoutine());
+      //  wait = Random.Range(5f, 10f);
+      //  StartCoroutine(WorkRoutine());
     }
 
     IEnumerator WorkRoutine()

@@ -733,7 +733,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Free Workers
 --- !u!222 &165147716
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4349,10 +4349,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e93b1b264433be04a89441f6f9bccc44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWorkers: 0
+  maxWorkers: 10
   workers:
-  - {fileID: 3489309961365624798, guid: 782b43e6dd91fd4449f0c98a9ee28c57, type: 3}
-  - {fileID: 2471954946531394537, guid: a087d46010003cf42814a0315cdb3efe, type: 3}
+  - {fileID: 3489309961365624798, guid: 73f626bc2fc83964d8c07dc738025427, type: 3}
+  - {fileID: 2471954946531394537, guid: 64cf2b0519ecfd34e8abefefccada03f, type: 3}
   spawnPoints:
   - {fileID: 340437082}
   - {fileID: 2067949976}
@@ -4364,6 +4364,9 @@ MonoBehaviour:
   - {fileID: 1778156179}
   - {fileID: 1443827430}
   - {fileID: 1480517947}
+  managers: []
+  Worker_manager: []
+  IsOldVersion: 1
 --- !u!4 &645008086
 Transform:
   m_ObjectHideFlags: 0
@@ -6183,6 +6186,11 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 13f7b8df3cb5bed45bb73e632b5df41e, type: 2}
+    - target: {fileID: 2105329777898877721, guid: d732601737e271243b0cdfa6e4184c59,
+        type: 3}
+      propertyPath: IsOld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2105329777898877721, guid: d732601737e271243b0cdfa6e4184c59,
         type: 3}
       propertyPath: IsSemaphore
@@ -12937,7 +12945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 116, y: -410}
+  m_AnchoredPosition: {x: 281, y: -138}
   m_SizeDelta: {x: 160, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1923651733
@@ -13013,7 +13021,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1923651733}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1923651735
 CanvasRenderer:
   m_ObjectHideFlags: 0

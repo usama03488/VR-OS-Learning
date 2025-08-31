@@ -9,7 +9,9 @@ public class SemaphoreManager : MonoBehaviour
 
     public List<GameObject> workers = new List<GameObject>(); // Worker prefabs
     public List<Transform> spawnPoints = new List<Transform>(); // Spawn positions
-
+    public List<SlotManager> managers;
+    public List<Worker> Worker_manager;
+    public bool IsOldVersion;
     public static SemaphoreManager Instance; // Singleton for easy access
 
     private void Awake()
@@ -19,27 +21,59 @@ public class SemaphoreManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnWorkers();
-        ActivateInitialWorkers();
-    }
-
-    void SpawnWorkers()
-    {
-        foreach (Transform point in spawnPoints)
+        if (IsOldVersion)
         {
-            int index = Random.Range(0, workers.Count);
-            GameObject obj = Instantiate(workers[index], point.position, point.rotation);
-            obj.SetActive(false);
-            waitingWorkers.Enqueue(obj);
+            SpawnWorkers(false);
         }
+        else
+        {
+            SpawnWorkers(true);
+            ActivateInitialWorkers();
+        }
+    
+    }
+    public void FreeAll_Workers()
+    {
+        for (int i = 0; i < managers.Count; i++)
+        {
+            managers[i].InstantFree();
+        }
+    }
+    void SpawnWorkers(bool status)
+    {
+        if (status == false)
+        {
+            for (int i = 0; i < spawnPoints.Count; i++)
+            {
+                int index = Random.Range(0, workers.Count);
+                GameObject obj = Instantiate(workers[index], spawnPoints[i].position, spawnPoints[i].rotation);
+                Debug.Log("Assigned");
+                Worker_manager.Add(obj.GetComponent<Worker>());
+               // Worker_manager[i]= obj.GetComponent<Worker>();
+                obj.SetActive(status);
+                waitingWorkers.Enqueue(obj);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < spawnPoints.Count; i++)
+            {
+                int index = Random.Range(0, workers.Count);
+                GameObject obj = Instantiate(workers[index], spawnPoints[i].position, spawnPoints[i].rotation);
+                managers[i].worker = obj.GetComponent<Worker>();
+                obj.SetActive(status);
+                waitingWorkers.Enqueue(obj);
+            }
+        }
+      
     }
 
     void ActivateInitialWorkers()
     {
-        for (int i = 0; i < maxWorkers; i++)
-        {
-            ActivateNextWorker();
-        }
+        //for (int i = 0; i < maxWorkers; i++)
+        //{
+        //    ActivateNextWorker();
+        //}
     }
 
     public void WorkerFinished(GameObject worker)
@@ -62,23 +96,29 @@ public class SemaphoreManager : MonoBehaviour
             nextWorker.GetComponent<Worker>().StartWork();
         }
     }
-
+    private bool isUpdating = false;
     public void UpdateSemaphoreValue(float newValue)
     {
+        if (isUpdating) return;
+        isUpdating = true;
+
         maxWorkers = Mathf.RoundToInt(newValue);
 
-        // Adjust active workers to match new semaphore value
-        while (activeWorkers.Count < maxWorkers)
+        // Increase active workers if needed
+        while (activeWorkers.Count < maxWorkers && waitingWorkers.Count > 0)
         {
             ActivateNextWorker();
         }
 
+        // Decrease active workers if needed
         while (activeWorkers.Count > maxWorkers)
         {
             GameObject worker = activeWorkers[activeWorkers.Count - 1];
-            activeWorkers.Remove(worker);
+            activeWorkers.RemoveAt(activeWorkers.Count - 1);
             worker.SetActive(false);
             waitingWorkers.Enqueue(worker);
         }
+
+        isUpdating = false;
     }
 }
