@@ -1746,7 +1746,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0ebbcec4dd8e2f040b163f10df7e8382, type: 3}
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
     m_FontSize: 27
     m_FontStyle: 1
     m_BestFit: 0
@@ -1758,7 +1758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Producer-Consumer Problem
+  m_Text: Dead Lock
 --- !u!222 &258999475
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8261,6 +8261,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC-1
       objectReference: {fileID: 0}
+    - target: {fileID: 4070672600723877413, guid: 782b43e6dd91fd4449f0c98a9ee28c57,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5054711740012375699, guid: 782b43e6dd91fd4449f0c98a9ee28c57,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -13194,7 +13199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1635430825
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13247,15 +13252,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Each machine now has a lock panel that workers must use before operating.
-
-    If
-    a worker locks the machine, the other must wait.
-
-    Unlocking happens after
-    work is done, allowing access to the next worker.
-
-'
+  m_Text: Both are waiting for each other's resources and won't release their own.This
+    creates a deadlock
 --- !u!222 &1635430827
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18242,6 +18240,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: nPC-2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6575262061828976936, guid: a087d46010003cf42814a0315cdb3efe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6961101973479417837, guid: a087d46010003cf42814a0315cdb3efe,
         type: 3}
